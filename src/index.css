@@ -1,0 +1,111 @@
+@import "tailwindcss";
+
+@layer utilities {
+  @keyframes stickerHeartbeat {
+    0%, 100% { transform: scale(1); }
+    14% { transform: scale(1.32); }
+    28% { transform: scale(1.1); }
+    42% { transform: scale(1.3); }
+    70% { transform: scale(1); }
+  }
+
+  @keyframes stickerWobble {
+    0%, 100% { transform: rotate(0deg) scale(1); }
+    15% { transform: rotate(-16deg) scale(1.15); }
+    30% { transform: rotate(14deg) scale(1.15); }
+    45% { transform: rotate(-10deg) scale(1.1); }
+    60% { transform: rotate(8deg) scale(1.05); }
+    75% { transform: rotate(-4deg) scale(1); }
+  }
+
+  @keyframes stickerSwing {
+    0%, 100% { transform: rotate(0deg); transform-origin: top center; }
+    20% { transform: rotate(22deg); }
+    40% { transform: rotate(-18deg); }
+    60% { transform: rotate(12deg); }
+    80% { transform: rotate(-8deg); }
+  }
+
+  @keyframes stickerSparkle {
+    0%, 100% { transform: scale(1) rotate(0deg); filter: drop-shadow(0 0 2px rgba(251, 191, 36, 0.4)); }
+    50% { transform: scale(1.3) rotate(20deg); filter: drop-shadow(0 0 8px rgba(251, 191, 36, 0.9)); }
+  }
+
+  @keyframes stickerFlash {
+    0%, 100% { transform: scale(1); opacity: 1; filter: drop-shadow(0 0 4px rgba(239, 68, 68, 0.6)); }
+    50% { transform: scale(1.22); opacity: 0.85; filter: drop-shadow(0 0 14px rgba(239, 68, 68, 1)); }
+  }
+
+  @keyframes stickerFloat {
+    0%, 100% { transform: translateY(0px) rotate(0deg); }
+    50% { transform: translateY(-7px) rotate(4deg); }
+  }
+
+  @keyframes stickerSpinSlow {
+    from { transform: rotate(0deg); }
+    to { transform: rotate(360deg); }
+  }
+}
+
+.animate-sticker-heartbeat {
+  animation: stickerHeartbeat 1.3s cubic-bezier(0.215, 0.61, 0.355, 1) infinite;
+  display: inline-block;
+  will-change: transform;
+}
+
+.animate-sticker-wobble {
+  animation: stickerWobble 1.2s ease-in-out infinite;
+  display: inline-block;
+  will-change: transform;
+}
+
+.animate-sticker-swing {
+  animation: stickerSwing 1.4s ease-in-out infinite;
+  display: inline-block;
+  transform-origin: top center;
+  will-change: transform;
+}
+
+.animate-sticker-sparkle {
+  animation: stickerSparkle 1.4s ease-in-out infinite;
+  display: inline-block;
+  will-change: transform, filter;
+}
+
+.animate-sticker-flash {
+  animation: stickerFlash 0.8s ease-in-out infinite;
+  display: inline-block;
+  will-change: transform, opacity;
+}
+
+.animate-sticker-float {
+  animation: stickerFloat 2s ease-in-out infinite;
+  display: inline-block;
+  will-change: transform;
+}
+
+.animate-sticker-spin {
+  animation: stickerSparkle 1.8s ease-in-out infinite;
+  display: inline-block;
+}
+
+.animate-sticker-spin-slow {
+  animation: stickerSpinSlow 7s linear infinite;
+  display: inline-block;
+}
+
+.animate-sticker-bounce {
+  animation: bounce 1.1s infinite;
+  display: inline-block;
+}
+
+.animate-sticker-pulse-fast {
+  animation: pulse 1s cubic-bezier(0.4, 0, 0.6, 1) infinite;
+  display: inline-block;
+}
+
+.animate-sticker-glow {
+  animation: stickerFlash 1.6s ease-in-out infinite;
+  display: inline-block;
+}
+

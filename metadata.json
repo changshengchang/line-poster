@@ -1,0 +1,6 @@
+{
+  "name": "LINE 公告文字貼圖製作器",
+  "description": "專業級 LINE 公告文字與動態貼圖卡片製作工具，支援標題貼圖、精美數字與符號樣式、日期數字鮮豔高亮、動態貼圖庫及一鍵複製與圖片下載。",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}
