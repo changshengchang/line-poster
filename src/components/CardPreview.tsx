@@ -150,12 +150,12 @@ export const CardPreview: React.FC<CardPreviewProps> = ({ config, onOpenStickerP
     }
   };
 
-  // Generate & Copy Animated Card GIF (Requirement 1: Animated stickers play in LINE)
+  // Generate & Copy Animated Card GIF (Optimized & Out of Memory Protected)
   const handleCopyAnimatedCard = async () => {
     if (!cardRef.current) return;
     try {
       setIsExporting(true);
-      setExportProgressText('正在準備錄製動態貼圖卡片...');
+      setExportProgressText('正在快速生成動態貼圖卡片...');
 
       const result = await generateAnimatedCardGif(
         cardRef.current,
@@ -166,19 +166,9 @@ export const CardPreview: React.FC<CardPreviewProps> = ({ config, onOpenStickerP
 
       setGeneratedGifData(result);
 
-      // Generate crisp PNG blob for guaranteed LINE Desktop and browser Ctrl+V compatibility
-      let pngBlob: Blob | null = null;
-      try {
-        pngBlob = await toBlob(cardRef.current, {
-          pixelRatio: 2.2,
-          backgroundColor: '#ffffff',
-        });
-      } catch (blobErr) {
-        console.warn('toBlob fallback in copyAnimatedCard:', blobErr);
-      }
-
-      // Write image to clipboard in LINE-compatible format
-      const copyRes = await copyGifToClipboard(result.blob, pngBlob || undefined);
+      // Write image to clipboard in LINE-compatible format using the frame-0 PNG blob directly
+      // Eliminates redundant rendering passes and protects from memory exhaustion!
+      const copyRes = await copyGifToClipboard(result.blob, result.pngBlob);
       setCopiedImage(true);
       setShowGifModal(true);
 
@@ -199,16 +189,17 @@ export const CardPreview: React.FC<CardPreviewProps> = ({ config, onOpenStickerP
     }
   };
 
-  // Download High-Resolution Static PNG
+  // Download High-Resolution Static PNG (Optimized without font CSS bloat)
   const handleDownloadPng = async () => {
     if (!cardRef.current) return;
     try {
       setIsExporting(true);
       setExportProgressText('正在生成靜態高畫質 PNG 圖檔...');
       const dataUrl = await toPng(cardRef.current, {
-        cacheBust: true,
-        pixelRatio: 2.5,
+        cacheBust: false,
+        pixelRatio: 2.0,
         backgroundColor: '#ffffff',
+        fontEmbedCSS: '',
       });
       const link = document.createElement('a');
       const cleanTitle = config.title.replace(/[^\w\u4e00-\u9fa5]/g, '_');
